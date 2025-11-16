@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Disease Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Multi-Disease Prediction System</h1>
+            <p class="subtitle">Early detection for Diabetes, Heart Disease, and Parkinson's</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="diabetes">Diabetes</button>
+            <button class="tab-btn" data-tab="heart">Heart Disease</button>
+            <button class="tab-btn" data-tab="parkinsons">Parkinson's</button>
+        </div>
+
+        <!-- Diabetes Form -->
+        <div class="tab-content active" id="diabetes">
+            <h2>Diabetes Risk Assessment</h2>
+            <form id="diabetes-form" class="prediction-form">
+                <div class="form-group">
+                    <label for="pregnancies">Number of Pregnancies</label>
+                    <input type="number" id="pregnancies" name="pregnancies" min="0" max="20" required>
+                </div>
+                <div class="form-group">
+                    <label for="glucose">Glucose Level (mg/dL)</label>
+                    <input type="number" id="glucose" name="glucose" min="0" max="500" required>
+                </div>
+                <div class="form-group">
+                    <label for="blood_pressure">Blood Pressure (mm Hg)</label>
+                    <input type="number" id="blood_pressure" name="blood_pressure" min="0" max="200" required>
+                </div>
+                <div class="form-group">
+                    <label for="skin_thickness">Skin Thickness (mm)</label>
+                    <input type="number" id="skin_thickness" name="skin_thickness" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="insulin">Insulin Level (μU/ml)</label>
+                    <input type="number" id="insulin" name="insulin" min="0" max="1000" required>
+                </div>
+                <div class="form-group">
+                    <label for="bmi">BMI (Body Mass Index)</label>
+                    <input type="number" id="bmi" name="bmi" min="0" max="60" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="diabetes_pedigree">Diabetes Pedigree Function</label>
+                    <input type="number" id="diabetes_pedigree" name="diabetes_pedigree" min="0" max="3" step="0.001" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="0" max="120" required>
+                </div>
+                <button type="submit" class="submit-btn">Predict Diabetes Risk</button>
+            </form>
+            <div id="diabetes-result" class="result"></div>
+        </div>
+
+        <!-- Heart Disease Form -->
+        <div class="tab-content" id="heart">
+            <h2>Heart Disease Risk Assessment</h2>
+            <form id="heart-form" class="prediction-form">
+                <div class="form-group">
+                    <label for="heart_age">Age</label>
+                    <input type="number" id="heart_age" name="age" min="0" max="120" required>
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex (0 = Female, 1 = Male)</label>
+                    <input type="number" id="sex" name="sex" min="0" max="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="cp">Chest Pain Type (0-3)</label>
+                    <input type="number" id="cp" name="cp" min="0" max="3" required>
+                </div>
+                <div class="form-group">
+                    <label for="trestbps">Resting Blood Pressure (mm Hg)</label>
+                    <input type="number" id="trestbps" name="trestbps" min="0" max="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="chol">Serum Cholesterol (mg/dl)</label>
+                    <input type="number" id="chol" name="chol" min="0" max="600" required>
+                </div>
+                <div class="form-group">
+                    <label for="fbs">Fasting Blood Sugar > 120 (0 = No, 1 = Yes)</label>
+                    <input type="number" id="fbs" name="fbs" min="0" max="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="restecg">Resting ECG (0-2)</label>
+                    <input type="number" id="restecg" name="restecg" min="0" max="2" required>
+                </div>
+                <div class="form-group">
+                    <label for="thalach">Maximum Heart Rate Achieved</label>
+                    <input type="number" id="thalach" name="thalach" min="0" max="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="exang">Exercise Induced Angina (0 = No, 1 = Yes)</label>
+                    <input type="number" id="exang" name="exang" min="0" max="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="oldpeak">ST Depression Induced by Exercise</label>
+                    <input type="number" id="oldpeak" name="oldpeak" min="0" max="10" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="slope">Slope of Peak Exercise ST Segment (0-2)</label>
+                    <input type="number" id="slope" name="slope" min="0" max="2" required>
+                </div>
+                <div class="form-group">
+                    <label for="ca">Number of Major Vessels (0-3)</label>
+                    <input type="number" id="ca" name="ca" min="0" max="3" required>
+                </div>
+                <div class="form-group">
+                    <label for="thal">Thalassemia (0-3)</label>
+                    <input type="number" id="thal" name="thal" min="0" max="3" required>
+                </div>
+                <button type="submit" class="submit-btn">Predict Heart Disease Risk</button>
+            </form>
+            <div id="heart-result" class="result"></div>
+        </div>
+
+        <!-- Parkinson's Form -->
+        <div class="tab-content" id="parkinsons">
+            <h2>Parkinson's Disease Risk Assessment</h2>
+            <form id="parkinsons-form" class="prediction-form">
+                <div class="form-group">
+                    <label for="jitter">Jitter (%)</label>
+                    <input type="number" id="jitter" name="jitter" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="shimmer">Shimmer</label>
+                    <input type="number" id="shimmer" name="shimmer" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="nhr">NHR (Noise-to-Harmonics Ratio)</label>
+                    <input type="number" id="nhr" name="nhr" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="hnr">HNR (Harmonics-to-Noise Ratio)</label>
+                    <input type="number" id="hnr" name="hnr" min="0" max="50" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="rpde">RPDE (Recurrence Period Density Entropy)</label>
+                    <input type="number" id="rpde" name="rpde" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="dfa">DFA (Detrended Fluctuation Analysis)</label>
+                    <input type="number" id="dfa" name="dfa" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="spread1">Spread1</label>
+                    <input type="number" id="spread1" name="spread1" min="-10" max="10" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="spread2">Spread2</label>
+                    <input type="number" id="spread2" name="spread2" min="0" max="1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="d2">D2</label>
+                    <input type="number" id="d2" name="d2" min="0" max="10" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="ppe">PPE (Pitch Period Entropy)</label>
+                    <input type="number" id="ppe" name="ppe" min="0" max="1" step="0.0001" required>
+                </div>
+                <button type="submit" class="submit-btn">Predict Parkinson's Risk</button>
+            </form>
+            <div id="parkinsons-result" class="result"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
